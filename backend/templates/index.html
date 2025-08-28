@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Live Stream</title>
+    <style>
+        /* Remove default margin and scrollbars */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            background-color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Position header on top of image */
+        h1 {
+            color: #4CAF50;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* optional: background for readability */
+            border-radius: 8px;
+        }
+
+        /* Fullscreen video stream image */
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    {% if show_heading %}
+<h1>Live Drone Detection Stream 𖥂</h1>
+{% endif %}
+
+    <img src="{{ url_for('video_feed') }}" alt="Live Video Feed">
+</body>
+</html>

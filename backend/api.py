@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 import cv2
 import threading
 from Yolo import process_video_stream # Import the function from your main script
@@ -10,7 +10,9 @@ def index():
     """
     The main route that renders the HTML template.
     """
-    return render_template('index.html')
+    user_agent = request.headers.get('User-Agent', '').lower()
+    is_pyqt = 'qtwebengine' in user_agent
+    return render_template('index.html', show_heading=not is_pyqt)
 
 def generate_frames():
     """

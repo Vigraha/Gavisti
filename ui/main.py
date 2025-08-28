@@ -1,5 +1,7 @@
 import sys
 import time
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtCore import QUrl
 import webbrowser
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
@@ -45,7 +47,6 @@ class MAVLinkConnector(QObject):
             self.connection_failed.emit(error_message)
 
 
-# ---------------------------------------------------------------------
 
 class DroneControlApp(QWidget):
     def __init__(self):
@@ -205,17 +206,30 @@ class DroneControlApp(QWidget):
         right_panel_layout = QVBoxLayout()
         right_panel_layout.setSpacing(20)
 
-        # Video Feed Section
+
         video_frame = QFrame()
         video_frame.setFrameShape(QFrame.Shape.StyledPanel)
         video_frame.setFrameShadow(QFrame.Shadow.Raised)
         video_frame.setStyleSheet("background-color: #0F172A; border: 1px solid #1E293B; border-radius: 15px;")
+
+        # Layout for the frame
         video_layout = QVBoxLayout(video_frame)
+
+        # Browser
+        video_browser = QWebEngineView()
+        video_browser.setUrl(QUrl("http://172.16.0.76:5000/"))
+        video_browser.setZoomFactor(2.5)
+        video_browser.setStyleSheet("background-color: black; border: none;")
+        video_layout.addWidget(video_browser)
+
+        # Label
         video_label = QLabel("LIVE VIDEO FEED")
         video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         video_label.setStyleSheet("color: #64748B; font-size: 24px; font-weight: bold;")
         video_layout.addWidget(video_label)
-        right_panel_layout.addWidget(video_frame, 3)  # Set stretch factor
+
+        # Add to right panel
+        right_panel_layout.addWidget(video_frame, 3)
 
         # Controls Section
         controls_frame = QFrame()
