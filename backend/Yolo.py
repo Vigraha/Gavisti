@@ -3,7 +3,7 @@ import cv2
 import threading
 
 # Define paths
-weights_path = r"C:\Users\pfdtm\Downloads\best.pt"
+weights_path = r"/home/pfdt5/Downloads/best"
 
 # Load the YOLOv8 model
 model = YOLO(weights_path)
